@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
+import ImagePopup from './ImagePopup';
 
 
 function App() {
@@ -11,26 +12,32 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
-  
+  const [selectedCard, setSelectedCard] = React.useState(null);
+
+  const handleCardClick = (card) => {
+    setSelectedCard(card);
+  }
+  console.log(selectedCard)
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
-    document.querySelector('.popup_type_edit-avatar').classList.add('popup_opened');
+    // document.querySelector('.popup_type_edit-avatar').classList.add('popup_opened');
   }
 
   const handleEditProfileClick = () => {
     setIsEditProfilePopupOpen(true);
-    document.querySelector('.popup_type_profile').classList.add('popup_opened');
+    // document.querySelector('.popup_type_profile').classList.add('popup_opened');
   }
 
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
-    document.querySelector('.popup_type_add').classList.add('popup_opened');
+    // document.querySelector('.popup_type_add').classList.add('popup_opened');
   }
 
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setSelectedCard(null);
   }
 
   return (
@@ -38,8 +45,11 @@ function App() {
 
       <Header/>
 
-      <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onEditAvatar={handleEditAvatarClick}/>
-
+      <Main 
+        onEditProfile={handleEditProfileClick} 
+        onAddPlace={handleAddPlaceClick} 
+        onEditAvatar={handleEditAvatarClick}
+        onCardClick={handleCardClick}/>
       <Footer/>
 
       <PopupWithForm 
@@ -52,6 +62,7 @@ function App() {
         <input required id="post-input" name="about" type="text" class="popup__input popup__input_field_post" placeholder="О себе" value="Исследователь океана" minlength="2" maxlength="200"/>
         <span class="popup__input-error post-input-error"></span>
       </PopupWithForm>
+
       <PopupWithForm 
         name="add" 
         title="Новое место" 
@@ -63,6 +74,7 @@ function App() {
         <span className="popup__input-error link-place-input-error"></span>
         <button type="submit" className="popup__button-form">Создать</button>
       </PopupWithForm>
+
       <PopupWithForm 
         name="edit-avatar" 
         title="Обновить аватар" 
@@ -72,6 +84,17 @@ function App() {
         <span className="popup__input-error link-avatar-input-error"></span>
         <button type="submit" className="popup__button-form">Сохранить</button>
       </PopupWithForm>
+
+      <ImagePopup 
+        card={selectedCard}
+        onClose={closeAllPopups}/>
+      {/* <PopupWithForm 
+        name="approval" 
+        title="Вы уверены?" 
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}>
+        <button type="submit" className="popup__button-form popup__button-form_type_approval">Да</button>
+      </PopupWithForm> */}
       {/* <section className="popup popup_type_profile">
         <div className="popup__container">
           <form name="editForm" className="popup__form popup__form_edit" novalidate>

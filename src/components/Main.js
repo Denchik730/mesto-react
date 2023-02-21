@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Card from './Card';
+
 import api from '../utils/api';
 
 function Main(props) {
@@ -14,7 +16,6 @@ function Main(props) {
       .then(data => {
         const [userData, cardData] = data;
 
-        console.log(userData)
         setUserName(userData.name);
         setUserDescription(userData.about);
         setUserAvatar(userData.avatar);
@@ -43,19 +44,9 @@ function Main(props) {
       <section className="elements page__elements">
         <div className="elements__grid-container">
 
-        {cards.map(card => {
+        {cards.map((card, i) => {
           return (
-            <figure className="card-place">
-              <img src={card.link} className="card-place__img" alt={`Изображение ${card.name}`}/>
-              <button type="button" aria-label="Удалить" className="card-place__delete"></button>
-              <figcaption className="card-place__descr">
-                <h2 className="card-place__name">{card.name}</h2>
-                <div className="card-place__wrapper-likes">
-                  <button type="button" aria-label="Нравиться" className="card-place__like"></button>
-                  <p className="card-place__like-count">{card.likes.length}</p>
-                </div>
-              </figcaption>
-            </figure>
+            <Card key={i} onCardClick={props.onCardClick} card={card}/>
           )
         })}
 
