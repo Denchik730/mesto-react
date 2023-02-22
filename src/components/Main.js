@@ -51,7 +51,6 @@ function Main(props) {
           )
         })}
 
-
         </div>
       </section>
     </main>
