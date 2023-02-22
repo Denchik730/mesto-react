@@ -19,6 +19,7 @@ function Main(props) {
         setUserName(userData.name);
         setUserDescription(userData.about);
         setUserAvatar(userData.avatar);
+
         setCards(cardData);
 
       })

@@ -1,5 +1,4 @@
 function ImagePopup(props) {
-  console.log(props.card)
   return (
     <section className={`popup popup_type_image ${props.card && 'popup_opened'}`}>
       <div className="popup__container-image">
