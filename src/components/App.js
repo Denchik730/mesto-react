@@ -59,9 +59,27 @@ function App() {
         buttonTitle="Сохранить"
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}>
-        <input required id="name-profile-input" name="name" type="text" className="popup__input popup__input_field_name" placeholder="Имя" value="Жак-Ив Кусто" minlength="2" maxlength="40"/>
+        <input
+          required
+          id="name-profile-input"
+          name="name"
+          type="text"
+          className="popup__input popup__input_field_name"
+          placeholder="Имя"
+          value="Жак-Ив Кусто"
+          minlength="2"
+          maxlength="40"/>
         <span class="popup__input-error name-profile-input-error"></span>
-        <input required id="post-input" name="about" type="text" class="popup__input popup__input_field_post" placeholder="О себе" value="Исследователь океана" minlength="2" maxlength="200"/>
+        <input
+          required
+          id="post-input"
+          name="about"
+          type="text"
+          class="popup__input popup__input_field_post"
+          placeholder="О себе"
+          value="Исследователь океана"
+          minlength="2"
+          maxlength="200"/>
         <span class="popup__input-error post-input-error"></span>
       </PopupWithForm>
 
@@ -71,9 +89,23 @@ function App() {
         buttonTitle="Создать"
         isOpen={isAddPlacePopupOpen}
         onClose={closeAllPopups}>
-        <input required id="name-place-input" name="name" type="text" className="popup__input popup__input_field_place-name" placeholder="Название" minlength="2" maxlength="30"/>
+        <input
+          required
+          id="name-place-input"
+          name="name"
+          type="text"
+          className="popup__input popup__input_field_place-name"
+          placeholder="Название"
+          minlength="2"
+          maxlength="30"/>
         <span className="popup__input-error name-place-input-error"></span>
-        <input required id="link-place-input" name="link" type="url" className="popup__input popup__input_field_place-link" placeholder="Ссылка на картинку"/>
+        <input
+          required
+          id="link-place-input"
+          name="link"
+          type="url"
+          className="popup__input popup__input_field_place-link"
+          placeholder="Ссылка на картинку"/>
         <span className="popup__input-error link-place-input-error"></span>
       </PopupWithForm>
 
@@ -83,7 +115,12 @@ function App() {
         buttonTitle="Сохранить"
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}>
-        <input required id="link-avatar-input" name="avatar" type="url" className="popup__input popup__input_field_avatar-link" placeholder="Ссылка на картинку"/>
+        <input
+          required
+          id="link-avatar-input"
+          name="avatar" type="url"
+          className="popup__input popup__input_field_avatar-link"
+          placeholder="Ссылка на картинку"/>
         <span className="popup__input-error link-avatar-input-error"></span>
       </PopupWithForm>
 
