@@ -31,25 +31,36 @@ function Main(props) {
       <section className="info page__info">
         <div className="info__profile">
           <div onClick={props.onEditAvatar} className="info__profile-avatar-wrapper">
-            <img src={userAvatar} alt="Аватарка профиля" className="info__profile-avatar"/>
+            <img
+              src={userAvatar}
+              alt="Аватарка профиля"
+              className="info__profile-avatar"/>
           </div>
           <div className="info__profile-descr">
             <h1 className="info__profile-name">{userName}</h1>
-            <button onClick={props.onEditProfile} type="button" aria-label="Редактировать" className="info__edit-button"></button>
+            <button
+              onClick={props.onEditProfile}
+              type="button"
+              aria-label="Редактировать"
+              className="info__edit-button"/>
           </div>
           <p className="info__profile-post">{userDescription}</p>
         </div>
-        <button onClick={props.onAddPlace} type="button" aria-label="Закрыть" className="info__add-button"></button>
+        <button
+          onClick={props.onAddPlace}
+          type="button"
+          aria-label="Закрыть"
+          className="info__add-button"/>
       </section>
 
       <section className="elements page__elements">
         <div className="elements__grid-container">
 
-        {cards.map((card, i) => {
-          return (
-            <Card key={i} onCardClick={props.onCardClick} card={card}/>
-          )
-        })}
+          {cards.map(card => {
+            return (
+              <Card key={card._id} onCardClick={props.onCardClick} card={card}/>
+            );
+          })}
 
         </div>
       </section>
