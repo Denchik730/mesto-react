@@ -22,7 +22,7 @@ function App() {
 
 
   React.useEffect(() => {
-    api.getAllNeededData()
+    api.getUserInfo()
       .then(data => {
         setCurrentUser(data);
       })
