@@ -6,6 +6,9 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 
+import api from '../utils/api';
+
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function App() {
 
@@ -14,7 +17,17 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isApprovalPopupOpen, setIsApprovalPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
+  const [currentUser, setCurrentUser] = React.useState(null);
 
+
+
+  React.useEffect(() => {
+    api.getAllNeededData()
+      .then(data => {
+        setCurrentUser(data);
+      })
+      .catch(err => console.log(err))
+  }, [])
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -42,7 +55,8 @@ function App() {
   }
 
   return (
-    <div className='page'>
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className='page'>
 
       <Header/>
 
@@ -136,7 +150,9 @@ function App() {
         onClose={closeAllPopups}>
       </PopupWithForm>
 
-    </div>
+      </div>
+    </CurrentUserContext.Provider>
+
   );
 }
 
