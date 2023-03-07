@@ -18,6 +18,7 @@ function App() {
   const [isApprovalPopupOpen, setIsApprovalPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
     api.getUserInfo()
@@ -26,6 +27,34 @@ function App() {
       })
       .catch(err => console.log(err))
   }, [])
+
+  React.useEffect(() => {
+    api.getInitialCards()
+      .then(data => {
+        setCards(data);
+      })
+      .catch(err => console.log(err))
+  }, [])
+
+  const handleCardLike = (card) => {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+
+    if (isLiked) {
+      api.dislikeCard(card._id)
+        .then(newCard => {
+          setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
+        });
+    } else {
+      api.likeCard(card._id)
+        .then(newCard => {
+          setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
+        });
+    }
+  }
+
+  const handleCardDelete = (card) => {
+    console.log('delete')
+  }
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
@@ -62,8 +91,10 @@ function App() {
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick}/>
-
+        onCardClick={handleCardClick}
+        onCardLike={handleCardLike}
+        onCardDelete={handleCardDelete}
+        cards={cards}/>
       <Footer/>
 
       <PopupWithForm

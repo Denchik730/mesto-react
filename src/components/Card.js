@@ -2,7 +2,8 @@ import React from 'react';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function Card({card, onCardClick}) {
+function Card({card, onCardClick, onCardLike, onCardDelete}) {
+
   const currentUser = React.useContext(CurrentUserContext);
 
   const isOwn = card.owner._id === currentUser._id;
@@ -13,22 +14,30 @@ function Card({card, onCardClick}) {
     `card-place__like ${isLiked && 'card-place__like_active'}`
   );;
 
-  function handleClick() {
+  function handleImgClick() {
     onCardClick(card);
+  }
+
+  function handleLikeClick() {
+    onCardLike(card);
+  }
+
+  function handleDeleteClick() {
+    onCardDelete(card);
   }
 
   return (
     <figure className="card-place">
       <img
-        onClick={handleClick}
+        onClick={handleImgClick}
         src={card.link}
         className="card-place__img"
         alt={`Изображение ${card.name}`}/>
-      {isOwn && <button type="button" aria-label="Удалить" className="card-place__delete"/>}
+      {isOwn && <button onClick={handleDeleteClick} type="button" aria-label="Удалить" className="card-place__delete"/>}
       <figcaption className="card-place__descr">
         <h2 className="card-place__name">{card.name}</h2>
         <div className="card-place__wrapper-likes">
-          <button type="button" aria-label="Нравиться" className={cardLikeButtonClassName}/>
+          <button onClick={handleLikeClick} type="button" aria-label="Нравиться" className={cardLikeButtonClassName}/>
           <p className="card-place__like-count">{card.likes.length}</p>
         </div>
       </figcaption>

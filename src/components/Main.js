@@ -2,24 +2,11 @@ import React from 'react';
 
 import Card from './Card';
 
-import api from '../utils/api';
-
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
 
-  const [cards, setCards] = React.useState([]);
-
   const currentUser = React.useContext(CurrentUserContext);
-  console.log(currentUser);
-
-  React.useEffect(() => {
-    api.getInitialCards()
-      .then(data => {
-        setCards(data);
-      })
-      .catch(err => console.log(err))
-  }, [])
 
   return (
     <main className="content">
@@ -51,9 +38,14 @@ function Main(props) {
       <section className="elements page__elements">
         <div className="elements__grid-container">
 
-          {cards.map(card => {
+          {props.cards.map(card => {
             return (
-              <Card key={card._id} onCardClick={props.onCardClick} card={card}/>
+              <Card
+                key={card._id}
+                onCardClick={props.onCardClick}
+                onCardLike={props.onCardLike}
+                onCardDelete={props.onCardDelete}
+                card={card}/>
             );
           })}
 
