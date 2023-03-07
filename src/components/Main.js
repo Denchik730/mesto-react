@@ -7,24 +7,16 @@ import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function Main(props) {
-  // const [userName, setUserName] = React.useState('');
-  // const [userDescription, setUserDescription] = React.useState('');
-  // const [userAvatar, setUserAvatar] = React.useState('');
+
   const [cards, setCards] = React.useState([]);
 
   const currentUser = React.useContext(CurrentUserContext);
+  console.log(currentUser);
 
   React.useEffect(() => {
-    api.getAllNeededData()
+    api.getInitialCards()
       .then(data => {
-        const [userData, cardData] = data;
-
-        // setUserName(userData.name);
-        // setUserDescription(userData.about);
-        // setUserAvatar(userData.avatar);
-
-        setCards(cardData);
-
+        setCards(data);
       })
       .catch(err => console.log(err))
   }, [])
