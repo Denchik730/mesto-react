@@ -37,23 +37,26 @@ function App() {
   }, [])
 
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(user => user._id === currentUser._id);
 
     if (isLiked) {
       api.dislikeCard(card._id)
         .then(newCard => {
-          setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
+          setCards((cards) => cards.map((item) => item._id === card._id ? newCard : item));
         });
     } else {
       api.likeCard(card._id)
         .then(newCard => {
-          setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
+          setCards((cards) => cards.map((item) => item._id === card._id ? newCard : item));
         });
     }
   }
 
   const handleCardDelete = (card) => {
-    console.log('delete')
+    api.deleteCard(card._id)
+        .then(() => {
+          setCards((cards) => cards.filter((item) => item._id !== card._id));
+        });
   }
 
   const handleCardClick = (card) => {
