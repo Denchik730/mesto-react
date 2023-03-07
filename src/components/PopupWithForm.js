@@ -15,7 +15,7 @@ function PopupWithForm({name, title, buttonTitle, isOpen, onClose, children}) {
           onClick={onClose}
           type="button"
           aria-label="Закрыть"
-          class="popup__close"/>
+          className="popup__close"/>
       </div>
     </section>
   );

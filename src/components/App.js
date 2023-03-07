@@ -17,9 +17,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isApprovalPopupOpen, setIsApprovalPopupOpen] = React.useState(false);
   const [selectedCard, setSelectedCard] = React.useState(null);
-  const [currentUser, setCurrentUser] = React.useState(null);
-
-
+  const [currentUser, setCurrentUser] = React.useState({});
 
   React.useEffect(() => {
     api.getUserInfo()
@@ -65,6 +63,7 @@ function App() {
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}/>
+
       <Footer/>
 
       <PopupWithForm
@@ -83,18 +82,18 @@ function App() {
           value="Жак-Ив Кусто"
           minlength="2"
           maxlength="40"/>
-        <span class="popup__input-error name-profile-input-error"></span>
+        <span className="popup__input-error name-profile-input-error"></span>
         <input
           required
           id="post-input"
           name="about"
           type="text"
-          class="popup__input popup__input_field_post"
+          className="popup__input popup__input_field_post"
           placeholder="О себе"
           value="Исследователь океана"
           minlength="2"
           maxlength="200"/>
-        <span class="popup__input-error post-input-error"></span>
+        <span className="popup__input-error post-input-error"></span>
       </PopupWithForm>
 
       <PopupWithForm
