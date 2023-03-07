@@ -1,8 +1,8 @@
-function PopupWithForm({name, title, buttonTitle, isOpen, onClose, children}) {
+function PopupWithForm({name, title, buttonTitle, isOpen, onClose, children, onSubmit}) {
   return (
     <section className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
       <div className="popup__container">
-        <form name={name} className="popup__form popup__form_edit" novalidate>
+        <form onSubmit={onSubmit} name={name} className="popup__form popup__form_edit" novalidate>
           <h2 className="popup__title-form">{title}</h2>
           {children}
           <button

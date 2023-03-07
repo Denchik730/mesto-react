@@ -4,6 +4,7 @@ import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
 import PopupWithForm from './PopupWithForm';
+import EditProfilePopup from './EditProfilePopup';
 import ImagePopup from './ImagePopup';
 
 import api from '../utils/api';
@@ -43,20 +44,32 @@ function App() {
       api.dislikeCard(card._id)
         .then(newCard => {
           setCards((cards) => cards.map((item) => item._id === card._id ? newCard : item));
-        });
+        })
+        .catch(err => console.log(err))
     } else {
       api.likeCard(card._id)
         .then(newCard => {
           setCards((cards) => cards.map((item) => item._id === card._id ? newCard : item));
-        });
+        })
+        .catch(err => console.log(err))
     }
   }
 
   const handleCardDelete = (card) => {
     api.deleteCard(card._id)
-        .then(() => {
-          setCards((cards) => cards.filter((item) => item._id !== card._id));
-        });
+      .then(() => {
+        setCards((cards) => cards.filter((item) => item._id !== card._id));
+      })
+      .catch(err => console.log(err))
+  }
+
+  const handleUpdateUser = (data) => {
+    api.setProfileUserInfo(data)
+      .then(newDataUser => {
+        setCurrentUser(newDataUser);
+        closeAllPopups();
+      })
+      .catch(err => console.log(err))
   }
 
   const handleCardClick = (card) => {
@@ -100,7 +113,9 @@ function App() {
         cards={cards}/>
       <Footer/>
 
-      <PopupWithForm
+      <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+
+      {/* <PopupWithForm
         name="profile"
         title="Редактировать профиль"
         buttonTitle="Сохранить"
@@ -128,7 +143,7 @@ function App() {
           minlength="2"
           maxlength="200"/>
         <span className="popup__input-error post-input-error"></span>
-      </PopupWithForm>
+      </PopupWithForm> */}
 
       <PopupWithForm
         name="add"
