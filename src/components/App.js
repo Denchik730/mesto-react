@@ -6,6 +6,7 @@ import Main from './Main';
 import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
+import AddPlacePopup from './AddPlacePopup';
 import ImagePopup from './ImagePopup';
 
 import api from '../utils/api';
@@ -21,23 +22,27 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
-  // const [avatar, setAvatar] = React.useState('');
 
   React.useEffect(() => {
-    api.getUserInfo()
+    api.getAllNeededData()
       .then(data => {
-        setCurrentUser(data);
-      })
-      .catch(err => console.log(err))
-  }, [])
+        const [userData, cardData] = data;
 
-  React.useEffect(() => {
-    api.getInitialCards()
-      .then(data => {
-        setCards(data);
+        setCurrentUser(userData);
+        setCards(cardData);
       })
       .catch(err => console.log(err))
-  }, [])
+  }, []);
+
+
+  const handleAddPlaceSubmit = (newCardData) => {
+    api.addNewUserCard(newCardData)
+      .then(newApiCardData => {
+        setCards([newApiCardData, ...cards]);
+        closeAllPopups();
+      })
+      .catch(err => console.log(err))
+  }
 
   const handleCardLike = (card) => {
     const isLiked = card.likes.some(user => user._id === currentUser._id);
@@ -65,19 +70,19 @@ function App() {
       .catch(err => console.log(err))
   }
 
-  const handleUpdateUser = (data) => {
-    api.setProfileUserInfo(data)
-      .then(newDataUser => {
-        setCurrentUser(newDataUser);
+  const handleUpdateUser = (newUserData) => {
+    api.setProfileUserInfo(newUserData)
+      .then(newApiUserData => {
+        setCurrentUser(newApiUserData);
         closeAllPopups();
       })
       .catch(err => console.log(err))
   }
 
-  const handleUpdateAvatar = (avatarData) => {
-    api.changeUserAvatar(avatarData)
+  const handleUpdateAvatar = (newAvatarData) => {
+    api.changeUserAvatar(newAvatarData)
       .then(() => {
-        setCurrentUser({...currentUser, avatar: avatarData.avatar});
+        setCurrentUser({...currentUser, avatar: newAvatarData.avatar});
         closeAllPopups();
       })
       .catch(err => console.log(err))
@@ -127,31 +132,7 @@ function App() {
 
       <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
 
-      <PopupWithForm
-        name="add"
-        title="Новое место"
-        buttonTitle="Создать"
-        isOpen={isAddPlacePopupOpen}
-        onClose={closeAllPopups}>
-        <input
-          required
-          id="name-place-input"
-          name="name"
-          type="text"
-          className="popup__input popup__input_field_place-name"
-          placeholder="Название"
-          minlength="2"
-          maxlength="30"/>
-        <span className="popup__input-error name-place-input-error"></span>
-        <input
-          required
-          id="link-place-input"
-          name="link"
-          type="url"
-          className="popup__input popup__input_field_place-link"
-          placeholder="Ссылка на картинку"/>
-        <span className="popup__input-error link-place-input-error"></span>
-      </PopupWithForm>
+      <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
 
       <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
 
