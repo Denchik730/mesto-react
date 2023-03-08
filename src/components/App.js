@@ -3,10 +3,10 @@ import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import Main from './Main';
-import PopupWithForm from './PopupWithForm';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import ApprovalPopup from './ApprovalPopup';
 import ImagePopup from './ImagePopup';
 
 import api from '../utils/api';
@@ -22,6 +22,8 @@ function App() {
   const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [loadingPopupRequest, setLoadingPopupRequest] = React.useState(false);
+  const [willDeleteCard, setWillDeleteCard] = React.useState(null);
 
   React.useEffect(() => {
     api.getAllNeededData()
@@ -36,12 +38,15 @@ function App() {
 
 
   const handleAddPlaceSubmit = (newCardData) => {
+    setLoadingPopupRequest(true);
+
     api.addNewUserCard(newCardData)
       .then(newApiCardData => {
         setCards([newApiCardData, ...cards]);
         closeAllPopups();
       })
       .catch(err => console.log(err))
+      .finally(() => setLoadingPopupRequest(false))
   }
 
   const handleCardLike = (card) => {
@@ -63,33 +68,49 @@ function App() {
   }
 
   const handleCardDelete = (card) => {
+    setLoadingPopupRequest(true);
+
     api.deleteCard(card._id)
       .then(() => {
         setCards((cards) => cards.filter((item) => item._id !== card._id));
+        closeAllPopups();
+
       })
       .catch(err => console.log(err))
+      .finally(() => setLoadingPopupRequest(false))
   }
 
   const handleUpdateUser = (newUserData) => {
+    setLoadingPopupRequest(true);
+
     api.setProfileUserInfo(newUserData)
       .then(newApiUserData => {
         setCurrentUser(newApiUserData);
         closeAllPopups();
       })
       .catch(err => console.log(err))
+      .finally(() => setLoadingPopupRequest(false))
+
   }
 
   const handleUpdateAvatar = (newAvatarData) => {
+    setLoadingPopupRequest(true);
+
     api.changeUserAvatar(newAvatarData)
       .then(() => {
         setCurrentUser({...currentUser, avatar: newAvatarData.avatar});
         closeAllPopups();
       })
       .catch(err => console.log(err))
+      .finally(() => setLoadingPopupRequest(false))
   }
 
   const handleCardClick = (card) => {
     setSelectedCard(card);
+  }
+
+  const handleDeleteBtnClick = (card) => {
+    setWillDeleteCard(card);
   }
 
   const handleEditAvatarClick = () => {
@@ -104,6 +125,11 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
+  const handleApprovalClick = () => {
+    setIsApprovalPopupOpen(true);
+  }
+
+
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
@@ -117,36 +143,32 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
 
-      <Header/>
+        <Header/>
 
-      <Main
-        onEditProfile={handleEditProfileClick}
-        onAddPlace={handleAddPlaceClick}
-        onEditAvatar={handleEditAvatarClick}
-        onCardClick={handleCardClick}
-        onCardLike={handleCardLike}
-        onCardDelete={handleCardDelete}
-        cards={cards}
-        />
-      <Footer/>
+        <Main
+          onEditProfile={handleEditProfileClick}
+          onAddPlace={handleAddPlaceClick}
+          onEditAvatar={handleEditAvatarClick}
+          onApproval={handleApprovalClick}
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          onCardDelete={handleDeleteBtnClick}
+          cards={cards}
+          />
 
-      <EditProfilePopup onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <Footer/>
 
-      <AddPlacePopup onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup isLoadingRequest={loadingPopupRequest} onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
 
-      <EditAvatarPopup onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+        <AddPlacePopup isLoadingRequest={loadingPopupRequest} onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
 
-      <ImagePopup
-        card={selectedCard}
-        onClose={closeAllPopups}/>
+        <EditAvatarPopup isLoadingRequest={loadingPopupRequest} onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
 
-      <PopupWithForm
-        name="approval"
-        title="Вы уверены?"
-        buttonTitle="Да"
-        isOpen={isApprovalPopupOpen}
-        onClose={closeAllPopups}>
-      </PopupWithForm>
+        <ApprovalPopup card={willDeleteCard} isLoadingRequest={loadingPopupRequest} onDeleteCard={handleCardDelete} isOpen={isApprovalPopupOpen} onClose={closeAllPopups}></ApprovalPopup>
+
+        <ImagePopup
+          card={selectedCard}
+          onClose={closeAllPopups}/>
 
       </div>
     </CurrentUserContext.Provider>

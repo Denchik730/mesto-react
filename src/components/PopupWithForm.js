@@ -1,4 +1,13 @@
-function PopupWithForm({name, title, buttonTitle, isOpen, onClose, children, onSubmit}) {
+import React from 'react';
+
+function PopupWithForm({name, title, buttonTitle, isOpen, onClose, children, onSubmit, isLoadingRequest}) {
+
+  if (isLoadingRequest && name !== 'approval') {
+    buttonTitle = 'Сохранение...';
+  } else if (isLoadingRequest && name === 'approval') {
+    buttonTitle = 'Удаление...'
+  }
+
   return (
     <section className={`popup popup_type_${name} ${isOpen && 'popup_opened'}`}>
       <div className="popup__container">
