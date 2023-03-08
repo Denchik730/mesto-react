@@ -1,7 +1,9 @@
+import React from 'react';
+
 function PopupWithForm({name, title, buttonTitle, isOpen, onClose, children, onSubmit, isLoadingRequest}) {
 
   if (isLoadingRequest && name !== 'approval') {
-    buttonTitle = 'Сохранение...'
+    buttonTitle = 'Сохранение...';
   } else if (isLoadingRequest && name === 'approval') {
     buttonTitle = 'Удаление...'
   }

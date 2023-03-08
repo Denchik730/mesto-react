@@ -22,6 +22,9 @@ function AddPlacePopup({isOpen, onClose, onAddPlace, isLoadingRequest}) {
       name,
       link: link,
     });
+
+    setName('');
+    setLink('');
   }
 
   return (
