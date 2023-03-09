@@ -7,6 +7,11 @@ function AddPlacePopup({isOpen, onClose, onAddPlace, isLoadingRequest}) {
   const [name, setName] = React.useState('');
   const [link, setLink] = React.useState('');
 
+  React.useEffect(() => {
+    setName('');
+    setLink('');
+  }, [isOpen])
+
   const handleNameChange = (e) => {
     setName(e.target.value);
   }
@@ -23,8 +28,6 @@ function AddPlacePopup({isOpen, onClose, onAddPlace, isLoadingRequest}) {
       link: link,
     });
 
-    setName('');
-    setLink('');
   }
 
   return (
@@ -43,8 +46,8 @@ function AddPlacePopup({isOpen, onClose, onAddPlace, isLoadingRequest}) {
         type="text"
         className="popup__input popup__input_field_place-name"
         placeholder="Название"
-        minlength="2"
-        maxlength="30"
+        minLength="2"
+        maxLength="30"
         value={name}
         onChange={handleNameChange}/>
       <span className="popup__input-error name-place-input-error"></span>
