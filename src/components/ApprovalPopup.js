@@ -17,8 +17,7 @@ function ApprovalPopup({isOpen, onClose, isLoadingRequest, onDeleteCard, card}) 
       isOpen={isOpen}
       onClose={onClose}
       isLoadingRequest={isLoadingRequest}
-      onSubmit={handleSubmit}>
-    </PopupWithForm>
+      onSubmit={handleSubmit}/>
   );
 }
 
