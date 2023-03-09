@@ -6,15 +6,15 @@ import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadingRequest}) {
 
+  const currentUser = React.useContext(CurrentUserContext);
+
   const [name, setName] = React.useState('');
   const [description, setDescription] = React.useState('');
-
-  const currentUser = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
     setName(currentUser.name);
     setDescription(currentUser.about);
-  }, [currentUser]);
+  }, [currentUser, isOpen]);
 
   const handleNameChange = (e) => {
     setName(e.target.value);
@@ -50,10 +50,10 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadingRequest}) {
         type="text"
         className="popup__input popup__input_field_name"
         placeholder="Имя"
-        value={name}
+        value={name || ''}
         onChange={handleNameChange}
-        minlength="2"
-        maxlength="40"
+        minLength="2"
+        maxLength="40"
         />
       <span className="popup__input-error name-profile-input-error"></span>
       <input
@@ -63,10 +63,10 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadingRequest}) {
         type="text"
         className="popup__input popup__input_field_post"
         placeholder="О себе"
-        value={description}
+        value={description || ''}
         onChange={handleDescriptionChange}
-        minlength="2"
-        maxlength="200"
+        minLength="2"
+        maxLength="200"
         />
       <span className="popup__input-error post-input-error"></span>
     </PopupWithForm>
