@@ -139,6 +139,24 @@ function App() {
     setSelectedCard(null);
   }
 
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard || willDeleteCard;
+
+  React.useEffect(() => {
+    function closeEscape(evt) {
+      if (evt.key === `Escape`) {
+        closeAllPopups();
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('keydown', closeEscape);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', closeEscape);
+    }
+  }, [isOpen]);
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'>
