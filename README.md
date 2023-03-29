@@ -1,6 +1,9 @@
 # Проект: Место (React) ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB) ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white) ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
 ---
+## Превью:
+![Видео без названия — сделано в Clipchamp (2) (2)](https://user-images.githubusercontent.com/102176847/228539077-7a0feb73-4c8b-4a3d-8203-3c4168ec68be.gif)
+
 
 ## Описание: данный проект решает такие проблемы современности как:
 
