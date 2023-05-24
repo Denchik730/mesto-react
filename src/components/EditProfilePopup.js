@@ -55,14 +55,14 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadingRequest}) {
         id="post-input"
         name="about"
         type="text"
-        className={`popup__input ${errors.about && 'popup__input_type_error'} popup__input_field_name`}
+        className={`popup__input ${errors.about && 'popup__input_type_error'} popup__input_field_post`}
         placeholder="О себе"
         value={values.about || ''}
         onChange={handleChange}
         minLength="2"
         maxLength="200"
         />
-      <span className={`popup__input-error ${errors.about && 'popup__input-error_active'} name-profile-input-error`}>{errors.about || ''}</span>
+      <span className={`popup__input-error ${errors.about && 'popup__input-error_active'} post-input-error`}>{errors.about || ''}</span>
     </PopupWithForm>
   );
 }
