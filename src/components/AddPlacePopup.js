@@ -2,13 +2,13 @@ import React from 'react';
 
 import PopupWithForm from './PopupWithForm';
 
-import { useForm } from '../hooks/useForm';
+import { useFormWithValidation } from '../hooks/useFormWithValidation';
 
 function AddPlacePopup({isOpen, onClose, onAddPlace, isLoadingRequest}) {
-  const {values, handleChange, setValues} = useForm({});
+  const {values, handleChange, resetForm, errors, isValid} = useFormWithValidation();
 
   React.useEffect(() => {
-    setValues({})
+    resetForm({}, {}, false)
   }, [isOpen])
 
   const handleSubmit = (e) => {

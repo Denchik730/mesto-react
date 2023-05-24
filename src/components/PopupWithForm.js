@@ -2,7 +2,7 @@ import React from 'react';
 
 import Popup from './Popup';
 
-function PopupWithForm({name, title, buttonTitle, isOpen, onClose, children, onSubmit, isLoadingRequest}) {
+function PopupWithForm({name, title, buttonTitle, isOpen, onClose, children, onSubmit, isLoadingRequest, isDisabled}) {
 
   if (isLoadingRequest && name !== 'approval') {
     buttonTitle = 'Сохранение...';
@@ -17,7 +17,8 @@ function PopupWithForm({name, title, buttonTitle, isOpen, onClose, children, onS
         {children}
         <button
           type="submit"
-          className={`popup__button-form ${name === 'approval' ? 'popup__button-form_type_approval' : null}`}>
+          className={`popup__button-form ${name === 'approval' ? 'popup__button-form_type_approval' : null} ${isDisabled && 'popup__button-form_inactive'}`}
+          disabled={isDisabled}>
           {buttonTitle}
         </button>
       </form>
