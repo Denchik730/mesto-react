@@ -158,13 +158,35 @@ function App() {
 
         <Footer/>
 
-        <EditProfilePopup isLoadingRequest={loadingPopupRequest} onUpdateUser={handleUpdateUser} isOpen={isEditProfilePopupOpen} onClose={closeAllPopups} />
+        <EditProfilePopup
+          isLoadingRequest={loadingPopupRequest}
+          onUpdateUser={handleUpdateUser}
+          isOpen={isEditProfilePopupOpen}
+          onClose={closeAllPopups}
+          isSending={loadingPopupRequest}/>
 
-        <AddPlacePopup isLoadingRequest={loadingPopupRequest} onAddPlace={handleAddPlaceSubmit} isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+        <AddPlacePopup
+          isLoadingRequest={loadingPopupRequest}
+          onAddPlace={handleAddPlaceSubmit}
+          isOpen={isAddPlacePopupOpen}
+          onClose={closeAllPopups}
+          isSending={loadingPopupRequest}/>
 
-        <EditAvatarPopup isLoadingRequest={loadingPopupRequest} onUpdateAvatar={handleUpdateAvatar} isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} />
+        <EditAvatarPopup
+          isLoadingRequest={loadingPopupRequest}
+          onUpdateAvatar={handleUpdateAvatar}
+          isOpen={isEditAvatarPopupOpen}
+          onClose={closeAllPopups}
+          isSending={loadingPopupRequest}/>
 
-        <ApprovalPopup card={willDeleteCard} isLoadingRequest={loadingPopupRequest} onDeleteCard={handleCardDelete} isOpen={isApprovalPopupOpen} onClose={closeAllPopups}></ApprovalPopup>
+        <ApprovalPopup
+          card={willDeleteCard}
+          isLoadingRequest={loadingPopupRequest}
+          onDeleteCard={handleCardDelete}
+          isOpen={isApprovalPopupOpen}
+          onClose={closeAllPopups}
+          isSending={loadingPopupRequest}/>
+
 
         <ImagePopup
           card={selectedCard}

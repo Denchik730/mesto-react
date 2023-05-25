@@ -4,7 +4,7 @@ import PopupWithForm from './PopupWithForm';
 
 import { useFormWithValidation } from '../hooks/useFormWithValidation';
 
-function AddPlacePopup({isOpen, onClose, onAddPlace, isLoadingRequest}) {
+function AddPlacePopup({isOpen, onClose, onAddPlace, isLoadingRequest, isSending}) {
   const {values, handleChange, resetForm, errors, isValid} = useFormWithValidation();
 
   React.useEffect(() => {
@@ -30,7 +30,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace, isLoadingRequest}) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isDisabled={!isValid}>
+      isDisabled={!isValid || isSending}>
       <input
         required
         id="name-place-input"

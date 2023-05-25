@@ -6,7 +6,7 @@ import { useFormWithValidation } from '../hooks/useFormWithValidation';
 
 import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
-function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadingRequest}) {
+function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadingRequest, isSending}) {
 
   const currentUser = React.useContext(CurrentUserContext);
 
@@ -36,7 +36,7 @@ function EditProfilePopup({isOpen, onClose, onUpdateUser, isLoadingRequest}) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isDisabled={!isValid}>
+      isDisabled={!isValid || isSending}>
       <input
         required
         id="name-profile-input"
