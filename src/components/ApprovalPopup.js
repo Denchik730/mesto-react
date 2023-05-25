@@ -2,7 +2,7 @@ import React from 'react';
 
 import PopupWithForm from './PopupWithForm';
 
-function ApprovalPopup({isOpen, onClose, isLoadingRequest, onDeleteCard, card, isSending}) {
+function ApprovalPopup({isOpen, onClose, isLoadingRequest, onDeleteCard, card}) {
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,7 +18,7 @@ function ApprovalPopup({isOpen, onClose, isLoadingRequest, onDeleteCard, card, i
       onClose={onClose}
       isLoadingRequest={isLoadingRequest}
       onSubmit={handleSubmit}
-      isDisabled={isSending}/>
+      isDisabled={isLoadingRequest}/>
   );
 }
 

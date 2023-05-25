@@ -42,7 +42,6 @@ function Main(props) {
             return (
               <Card
                 key={card._id}
-                onApproval={props.onApproval}
                 onCardClick={props.onCardClick}
                 onCardLike={props.onCardLike}
                 onCardDelete={props.onCardDelete}

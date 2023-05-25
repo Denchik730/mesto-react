@@ -111,6 +111,7 @@ function App() {
 
   const handleDeleteBtnClick = (card) => {
     setWillDeleteCard(card);
+    setIsApprovalPopupOpen(true);
   }
 
   const handleEditAvatarClick = () => {
@@ -124,11 +125,6 @@ function App() {
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
   }
-
-  const handleApprovalClick = () => {
-    setIsApprovalPopupOpen(true);
-  }
-
 
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
@@ -149,7 +145,6 @@ function App() {
           onEditProfile={handleEditProfileClick}
           onAddPlace={handleAddPlaceClick}
           onEditAvatar={handleEditAvatarClick}
-          onApproval={handleApprovalClick}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
           onCardDelete={handleDeleteBtnClick}
@@ -169,24 +164,20 @@ function App() {
           isLoadingRequest={loadingPopupRequest}
           onAddPlace={handleAddPlaceSubmit}
           isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          isSending={loadingPopupRequest}/>
+          onClose={closeAllPopups}/>
 
         <EditAvatarPopup
           isLoadingRequest={loadingPopupRequest}
           onUpdateAvatar={handleUpdateAvatar}
           isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          isSending={loadingPopupRequest}/>
+          onClose={closeAllPopups}/>
 
         <ApprovalPopup
           card={willDeleteCard}
           isLoadingRequest={loadingPopupRequest}
           onDeleteCard={handleCardDelete}
           isOpen={isApprovalPopupOpen}
-          onClose={closeAllPopups}
-          isSending={loadingPopupRequest}/>
-
+          onClose={closeAllPopups}/>
 
         <ImagePopup
           card={selectedCard}

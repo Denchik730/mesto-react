@@ -4,7 +4,7 @@ import PopupWithForm from './PopupWithForm';
 
 import { useFormWithValidation } from '../hooks/useFormWithValidation';
 
-function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoadingRequest, isSending}) {
+function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoadingRequest}) {
   const {values, handleChange, resetForm, errors, isValid} = useFormWithValidation();
 
   React.useEffect(() => {
@@ -27,7 +27,7 @@ function EditAvatarPopup({isOpen, onClose, onUpdateAvatar, isLoadingRequest, isS
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isDisabled={!isValid || isSending}>
+      isDisabled={!isValid || isLoadingRequest}>
       <input
         required
         id="link-avatar-input"

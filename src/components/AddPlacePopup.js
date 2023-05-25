@@ -30,7 +30,7 @@ function AddPlacePopup({isOpen, onClose, onAddPlace, isLoadingRequest, isSending
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      isDisabled={!isValid || isSending}>
+      isDisabled={!isValid || isLoadingRequest}>
       <input
         required
         id="name-place-input"
